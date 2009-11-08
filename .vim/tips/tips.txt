@@ -1,0 +1,58 @@
+vim
+与其它程序配合使用
+
+编辑二进制文件
+vim可以很方便地编辑二进制文件，个人认为它比emacs的二进制
+编辑方式更好用。vim中二进制文件的编辑是先通过外部程序xxd来把
+文件dump成其二进制的文本形式，然后就可以按通常的编辑方式对文件
+进行编辑，编辑完成后再用xxd转化为原来的形式即可。
+可分如下几步进行：
+首先，以二进制方式打开文件，命令为
+      vi -b filename
+然后，在Ex模式下执行下面的命令将其dump
+      :%!xxd
+待编辑工作完成后，执行下面的命令即可将其转换回去
+      %!xxd -r
+xxd程序是vim软件包自带的一个程序，其功能就是进行十六进制的dump
+或者反之。这部分内容可以在vim自带的文档的usr_23.txt文件中找到。
+
+
+设置backspace键的行为。下面内容摘自/etc/vim/vimrc文件：
+set bs=2        " Allow backspacing over everything in insert mode
+这句话的意思是让backspace能在插入模式下删除任何东西。
+hilight
+vim有一个功能就是对最后一个search pattern进行高亮显示，默认情况下这
+个功能是在系统配置文件/etc/vim/vimrc中打开，其相应的选项如下：
+  set hlsearch "hilight the last search pattern
+如果你想关闭这个功能，你可以在你的~/.vimrc中文件中加入下面的内容来实现：
+  set nohlsearch
+顺便说一句，系统的配置文件/etc/vim/vimrc中含有许多有用的配置选项，很
+可能你要改的东西就在其中。
+
+
+
+将外部程序的输出包含在文件中
+有时你会遇到想把某个命令的执行输出包含在文件中的情况，这是使用vim的
+r!命令就可以很方便地做到。下面的命令将ls /home/的输出包含到文件中的当
+前位置：
+:r!ls /home
+
+
+
+改变当前的工作目录
+使用Ex命令cd来改变当前的工作目录，用pwd来查看工作目录。这些命令和
+linux的shell命令类似。
+:cd work/web/html
+
+
+关闭最后一个文件
+以前，我在vi中要关闭一个文件，我会使用命令q来进行。但是，在使用gvim
+的过程中我遇到了问题：那就是如果对最后一个打开的文件使用了q命令来关闭
+，那么 gvim也就退出了，这可不是我想要的结果。
+在vi中有file、buffer、window的概念，实际上我想要的只是关闭buffer或
+者是window即可。
+:bd          关闭buffer
+:bw          彻底关闭buffer
+:buffers     查看buffer列表
+:close       关闭窗口
+这样通过使用:bd命令，我就可以实现即关闭了文件又不退出gvim。

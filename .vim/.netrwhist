@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/work/test/thread-test'
+let g:netrw_dirhist_2='/work/liugang_list/www'
+let g:netrw_dirhist_3='/work/test/cprimer/gnu_files/1/data'
